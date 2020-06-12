@@ -1,0 +1,22 @@
+{
+  "name": "maketar",
+  "version": "1.0.0",
+  "description": "Makefile for tarballs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/circl-software/Maketar.git"
+  },
+  "author": "",
+  "license": "SEE LICENSE IN index.js",
+  "bugs": {
+    "url": "https://github.com/circl-software/Maketar/issues"
+  },
+  "homepage": "https://github.com/circl-software/Maketar#readme",
+  "dependencies": {
+    "cjse": "^1.0.3"
+  }
+}
