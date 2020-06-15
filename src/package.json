@@ -3,6 +3,7 @@
   "version": "0.9.0",
   "description": "Makefile for tarballs.",
   "main": "index.js",
+  "bin": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
