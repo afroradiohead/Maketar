@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 /*
 circl Software License version 1 revision 1 (CSLv1.1)
 
