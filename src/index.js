@@ -26,12 +26,7 @@ Copyright of the Developer 2020.
 require("cjse");
 const fs = require("fs");
 const cp = require("child_process");
-let args;
-if (process.argv0 == "node") {
-  args = process.argv.slice(2);
-} else {
-  args = process.argv.slice(1);
-}
+let args = process.argv.slice(2);
 const lastArg = args[args.length - 1];
 
 let maketar;
