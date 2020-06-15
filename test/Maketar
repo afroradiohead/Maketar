@@ -1,6 +1,9 @@
-test
-testtwo
-this is a comment
+config name
+testmake
 
-test
-testtwo
+add file
+index.js
+
+add fileAs
+index.js
+index2.js

@@ -1,0 +1,20 @@
+circl Software License version 1 revision 1 (CSLv1.1) 
+
+Definitions:
+"Software" - This software and its associated documentation files.
+"Redistrbution" - A change of the medium that the Software is initially released on.
+"Developer" - The person(s) or organization(s) which has/have authored the Software. ([fullname])
+"User" - Any person or organization who has obtained the Software.
+
+Copyright of the Developer [year].
+
+1. Permission is granted, free of charge, to the User, to use and modify the Software in any way.
+ 1.1. The User MAY NOT sell the Software, without direct consent from the Developer.
+ 1.2. If Redistributed, the User MUST make it obvious that the Redistribution is a "mirror", or "copy".
+  1.2.1 If any changes have been made to the Software in the Redistribution, they must be noted below the license, or in the source code.
+
+2. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT.
+
+3. IN NO EVENT SHALL THE DEVELOPER OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+4. This license is to be included in all copies or substantial portions of the Software.
