@@ -108,9 +108,11 @@ while (ptr <= maketar.length - 1) {
   ptr++;
 }
 
-console.log("Archiving and compressing files.");
-cp.spawnSync("tar", ["-cJC", ".maketartemp", "-f", `${name}.tar.xz`, "."]);
-cp.spawnSync("rm", ["-rf", ".maketartemp"]); // WHY!?
-console.log("Removed temp directory.");
+if (tempDirCreated) {
+  console.log("Archiving and compressing files.");
+  cp.spawnSync("tar", ["-cJC", ".maketartemp", "-f", `${name}.tar.xz`, "."]);
+  cp.spawnSync("rm", ["-rf", ".maketartemp"]); // WHY!?
+  console.log("Removed temp directory.");
+}
 
 console.log("\nDone.");
