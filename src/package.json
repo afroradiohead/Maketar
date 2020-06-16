@@ -1,6 +1,6 @@
 {
   "name": "maketar",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Utility for automated creation of tarballs.",
   "main": "index.js",
   "bin": "index.js",
