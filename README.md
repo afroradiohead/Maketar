@@ -1,2 +1,5 @@
 # Maketar
-Makefile for tarballs.
+```
+npm install -g maketar
+```
+Utility for automated creation of tarballs.
