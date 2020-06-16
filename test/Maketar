@@ -1,9 +1,9 @@
-config name
+setName
 testmake
 
-add file
+addFile
 index.js
 
-add fileAs
+addFileAs
 index.js
 index2.js

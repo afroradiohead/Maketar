@@ -27,109 +27,81 @@ require("cjse");
 const fs = require("fs");
 const cp = require("child_process");
 let args = process.argv.slice(2);
-const lastArg = args[args.length - 1];
 
+if (!args[0]) args[0] = "Maketar";
 let maketar;
-if (lastArg == undefined) {
-  try {
-    maketar = fs.readFileSync("Maketar", "utf8");
-  } catch {
-    console.log("Can't read the Maketar. Does it exist? Have you specified a custom filename?");
-    process.exit(1);
-  }
-} else {
-  try {
-    maketar = fs.readFileSync(lastArg, "utf8");
-  } catch {
-    console.log("Can't read the Maketar. Are you sure the filename is correct?");
-    process.exit(1);
-  }
+try {
+  maketar = fs.readFileSync(args[0], "utf8");
+} catch {
+  console.log("Can't read the Maketar. Does it exist? Do you have the proper privileges?");
+  process.exit(1);
 }
 
 let name = "archived";
 let tempDirCreated = false;
 
+function addFile(src, dest) {
+  if (!tempDirCreated) {
+    fs.mkdirSync(".maketartemp");
+    tempDirCreated = true;
+    console.log("Created temp directory.");
+  }
+  if (!dest) dest = src;
+
+  fs.copyFileSync(src, `.maketartemp/${dest}`);
+  console.log(`Added file ${src} as ${dest}`);
+}
+function addDir(src, dest) {
+  let dir = fs.readdirSync(src, {
+    "withFileTypes": true
+  });
+  if (!dest) dest = src;
+
+  console.log(`Adding files from ${src} to ${dest}`);
+  if (dest != ".") fs.mkdirSync(`.maketartemp/${dest}`);
+  dir.forEach((item) => {
+    if (item.isFile()) {
+      addFile(`${src}/${item.name}`, `${dest}/${item.name}`);
+    }
+  });
+}
+
 maketar = maketar.replaceAll("\r", "").split("\n");
 let ptr = 0;
-
 while (ptr <= maketar.length - 1) {
-  const statement = maketar[ptr].split(" ");
+  const line = maketar[ptr];
+  let src;
+  let dest;
 
-  switch (statement[0]) {
-    case "config":
-      switch (statement[1]) {
-        case "name":
-          ptr++;
-          name = maketar[ptr];
-          console.log(`Set name to ${name}`);
-          break;
-      }
+  switch (line) {
+    case "setName":
+      ptr++;
+      name = maketar[ptr];
+      console.log(`Set name to ${name}`);
       break;
-    case "add":
-      if (!tempDirCreated) {
-        fs.mkdirSync(".maketartemp");
-        tempDirCreated = true;
-      }
-
-      let src;
-      let dest;
-      let files;
-      switch (statement[1]) {
-        case "file":
-          ptr++;
-          src = maketar[ptr];
-          fs.copyFileSync(src, `.maketartemp/${src}`);
-          console.log(`Added file ${src}`);
-          break;
-        case "fileAs":
-          ptr++;
-          src = maketar[ptr];
-          ptr++
-          dest = maketar[ptr];
-          fs.copyFileSync(src, `.maketartemp/${dest}`);
-          console.log(`Added file ${src} as ${dest}`);
-          break;
-        case "dir":
-          files = [];
-          ptr++;
-          src = maketar[ptr];
-          fs.readdirSync(src, {
-            "withFileTypes": true
-          }).forEach((item) => {
-            if (item.isFile()) {
-              files.push(item.name);
-            }
-          });
-          console.log(`Adding files from directory ${src}`);
-          fs.mkdirSync(`.maketartemp/${src}`);
-          files.forEach((item) => {
-            fs.copyFileSync(`${src}/${item}`, `.maketartemp/${src}/${item}`);
-            console.log(`Added file ${src}/${item}`);
-          });
-          break;
-        case "dirAs":
-          files = [];
-          ptr++;
-          src = maketar[ptr];
-          ptr++;
-          dest = maketar[ptr];
-          fs.readdirSync(src, {
-            "withFileTypes": true
-          }).forEach((item) => {
-            if (item.isFile()) {
-              files.push(item.name);
-            }
-          });
-          console.log(`Adding files from directory ${src} to ${dest}`);
-          if (dest != ".") {
-            fs.mkdirSync(`.maketartemp/${dest}`);
-          }
-          files.forEach((item) => {
-            fs.copyFileSync(`${src}/${item}`, `.maketartemp/${dest}/${item}`);
-            console.log(`Added file ${src}/${item} as ${dest}/${item}`);
-          });
-          break;
-      }
+    case "addFile":
+      ptr++;
+      src = maketar[ptr];
+      addFile(src);
+      break;
+    case "addFileAs":
+      ptr++;
+      src = maketar[ptr];
+      ptr++;
+      dest = maketar[ptr];
+      addFile(src, dest);
+      break;
+    case "addDir":
+      ptr++;
+      src = maketar[ptr];
+      addDir(src);
+      break;
+    case "addDirAs":
+      ptr++;
+      src = maketar[ptr];
+      ptr++;
+      dest = maketar[ptr];
+      addDir(src, dest);
       break;
   }
 
@@ -139,5 +111,6 @@ while (ptr <= maketar.length - 1) {
 console.log("Archiving and compressing files.");
 cp.spawnSync("tar", ["-cJC", ".maketartemp", "-f", `${name}.tar.xz`, "."]);
 cp.spawnSync("rm", ["-rf", ".maketartemp"]); // WHY!?
+console.log("Removed temp directory.");
 
 console.log("\nDone.");
