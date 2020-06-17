@@ -5,7 +5,8 @@
   "main": "index.js",
   "bin": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "maketar": "node ./src/index.js --autorun",
+    "test": "jasmine JASMINE_CONFIG_PATH=./jasmine.json"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,13 @@
     "url": "https://github.com/circl-software/Maketar/issues"
   },
   "homepage": "https://github.com/circl-software/Maketar#readme",
-  "dependencies": {
-    "cjse": "^1.0.3"
+  "dependencies": {},
+  "devDependencies": {
+    "cjse": "^1.0.3",
+    "commander": "^5.1.0",
+    "fs": "0.0.1-security",
+    "jasmine": "^3.5.0",
+    "minimist": "^1.2.5",
+    "yargs": "^15.3.1"
   }
 }

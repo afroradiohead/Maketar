@@ -1,0 +1,9 @@
+config name
+testmake
+
+add file
+index.js
+
+add fileAs
+index.js
+index2.js
